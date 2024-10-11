@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using JetBrains.Annotations;
 
 namespace System.Reactive.Disposables
 {
@@ -218,6 +219,7 @@ namespace System.Reactive.Disposables
         /// <param name="item">Disposable to remove.</param>
         /// <returns>true if found; false otherwise.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="item"/> is <c>null</c>.</exception>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool Remove(IDisposable item)
         {
             if (item == null)
@@ -305,6 +307,7 @@ namespace System.Reactive.Disposables
         /// <summary>
         /// Disposes all disposables in the group and removes them from the group.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.Read)]
         public void Dispose()
         {
             List<IDisposable?>? currentDisposablesList = null;
@@ -350,6 +353,7 @@ namespace System.Reactive.Disposables
         /// <summary>
         /// Removes and disposes all disposables from the <see cref="CompositeDisposable"/>, but does not dispose the <see cref="CompositeDisposable"/>.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public void Clear()
         {
             IDisposable?[] previousDisposables;
